@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIAP • Análise de Problemas Multivariáveis (Cálculo Multivariável) | Turma 2ECR • 2023</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    :root {
+      --bg-dark: #050e0a;
+      --bg-card: #091a14;
+      --bg-surface: #122a21;
+      --border: #1b4033;
+      --text-main: #f3f4f6;
+      --text-muted: #94a3b8;
+      --primary: #10b981;
+      --secondary: #06b6d4;
+      --accent: #84cc16;
+      --radius: 12px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    [id] { scroll-margin-top: 95px; }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(10, 14, 23, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 10px 24px;
+    }
+
+    .header-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .header-row-1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-row-1 .brand-fiap {
+      color: var(--primary);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .header-row-2 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .turma-tag {
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .btn-repo-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 5px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .btn-repo-top:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+      filter: brightness(1.1);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero-banner {
+      margin-bottom: 32px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      background: var(--primary);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .metric-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .nav-tab {
+      padding: 10px 18px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-tab:hover, .nav-tab.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .cp-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .problem-box, .plot-box {
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .box-header {
+      background: var(--bg-surface);
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .box-content {
+      padding: 16px;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+    }
+
+    .formula-box {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), rgba(129, 140, 248, 0.05));
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .formula-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .formula-latex {
+      font-size: 1.25rem;
+      color: #ffffff;
+      overflow-x: auto;
+      padding: 6px 0;
+    }
+
+    .symbolab-container {
+      margin-bottom: 24px;
+    }
+
+    .symbolab-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .step-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .step-header {
+      margin-bottom: 8px;
+    }
+
+    .step-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .step-content {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+
+    .plot-img-container {
+      padding: 16px;
+      background: var(--bg-dark);
+      text-align: center;
+    }
+
+    .plot-img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+
+    footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="header-row-1">
+        <span class="brand-fiap">FIAP</span>
+        <span class="brand-sep">•</span>
+        <span>Engenharia da Computação</span>
+      </div>
+      <div class="header-row-2">
+        <span class="turma-tag">TURMA 2ECR • 2023</span>
+        <a href="https://github.com/Guimemee/fiap-analise-de-problemas-multivariaveis" class="btn-repo-top" target="_blank" rel="noopener">Ver Repositório ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero-banner">
+      <img src="card_technologies.svg" alt="FIAP Análise de Problemas Multivariáveis (Cálculo Multivariável) Banner" />
+    </div>
+
+    <div class="metrics-grid">
+      
+        <div class="metric-card">
+          <div class="metric-label">GRADIENTE MULTIVARIÁVEL</div>
+          <div class="metric-val">∇f(x,y,z)</div>
+          <div class="metric-sub">Direção de Máxima Variação</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">OTIMIZAÇÃO LAGRANGE</div>
+          <div class="metric-val">∇f = λ∇g</div>
+          <div class="metric-sub">Pontos Críticos sob Vínculo</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">INTEGRAIS MÚLTIPLAS</div>
+          <div class="metric-val">∬∬ R dx dy</div>
+          <div class="metric-sub">Volumes e Centroides 3D</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">RIGOR MATEMÁTICO</div>
+          <div class="metric-val">SYMBOLAB 100%</div>
+          <div class="metric-sub">Passo a Passo Algébrico Formal</div>
+        </div>
+    </div>
+
+    <nav class="nav-tabs">
+      <a href="#cp1" class="nav-tab active">CP 1: Integração por Substituiç...</a>
+      <a href="#cp2" class="nav-tab">CP 2: Funções de Várias Variáve...</a>
+      <a href="#cp3" class="nav-tab">CP 3: Vetor Gradiente e Derivad...</a>
+      <a href="#cp4" class="nav-tab">CP 4: Otimização com Vínculos: ...</a>
+      <a href="#cp5" class="nav-tab">CP 5: Integrais Duplas em Coord...</a>
+      <a href="#cp6" class="nav-tab">CP 6: Integrais de Linha e Teor...</a>
+    </nav>
+
+    
+      <section id="cp1" class="cp-section">
+        <div class="section-badge">CHECKPOINT 01 • 2ECR 2023</div>
+        <h2 class="section-title">Integração por Substituição Trigonométrica e Frações Parciais</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp1')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp1" class="box-content">
+            <p>Calcular a integral indefinida de fluxo de calor e campo magnético utilizando a técnica de substituição trigonométrica para expressões da forma sqrt(a^2 - u^2).</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\int \frac{dx}{\sqrt{a^2 - x^2}} = \arcsin\left(\frac{x}{a}\right) + C, \quad x = a \sin\theta$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Identificação da Substituição Trigonométrica</span>
+              </div>
+              <div class="step-content">
+                <p>Para a expressão \sqrt{a^2 - x^2}, definimos x = a \sin\theta, com -\frac{\pi}{2} \le \theta \le \frac{\pi}{2}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Diferenciação da Variável Auxiliar</span>
+              </div>
+              <div class="step-content">
+                <p>O diferencial dx = a \cos\theta \, d\theta.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Substituição no Integrando</span>
+              </div>
+              <div class="step-content">
+                <p>\sqrt{a^2 - x^2} = \sqrt{a^2 - a^2\sin^2\theta} = a\sqrt{1 - \sin^2\theta} = a \cos\theta.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Integração na Variável Angular</span>
+              </div>
+              <div class="step-content">
+                <p>\int \frac{a \cos\theta \, d\theta}{a \cos\theta} = \int d\theta = \theta + C.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Retorno à Variável Original</span>
+              </div>
+              <div class="step-content">
+                <p>Como \sin\theta = \frac{x}{a}, temos \theta = \arcsin\left(\frac{x}{a}\right). Portanto, o resultado formal é \arcsin\left(\frac{x}{a}\right) + C.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_1_cp1/grafico_resolucao.png" alt="Gráfico Integração por Substituição Trigonométrica e Frações Parciais" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp2" class="cp-section">
+        <div class="section-badge">CHECKPOINT 02 • 2ECR 2023</div>
+        <h2 class="section-title">Funções de Várias Variáveis e Derivadas Parciais de Primeira e Segunda Ordem</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp2')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp2" class="box-content">
+            <p>Analisar a superfície térmica de dispersão f(x, y) = x^3 + y^3 - 3xy e determinar todas as derivadas parciais primeiras e segundas, validando o Teorema de Clairaut-Schwarz.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2 f}{\partial y \partial x} = -3$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Derivadas Parciais de Primeira Ordem</span>
+              </div>
+              <div class="step-content">
+                <p>\frac{\partial f}{\partial x} = 3x^2 - 3y \quad \text{e} \quad \frac{\partial f}{\partial y} = 3y^2 - 3x.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Derivadas Parciais Puras de Segunda Ordem</span>
+              </div>
+              <div class="step-content">
+                <p>\frac{\partial^2 f}{\partial x^2} = 6x \quad \text{e} \quad \frac{\partial^2 f}{\partial y^2} = 6y.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Derivadas Parciais Mistas</span>
+              </div>
+              <div class="step-content">
+                <p>\frac{\partial}{\partial y}\left(\frac{\partial f}{\partial x}\right) = \frac{\partial}{\partial y}(3x^2 - 3y) = -3.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Verificação do Teorema de Clairaut</span>
+              </div>
+              <div class="step-content">
+                <p>\frac{\partial}{\partial x}\left(\frac{\partial f}{\partial y}\right) = \frac{\partial}{\partial x}(3y^2 - 3x) = -3. Como são contínuas em \mathbb{R}^2, f_{xy} = f_{yx}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão Analítica</span>
+              </div>
+              <div class="step-content">
+                <p>A simetria das derivadas mistas confirma o comportamento suave e contínuo do potencial de dispersão térmica.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_2_cp2/grafico_resolucao.png" alt="Gráfico Funções de Várias Variáveis e Derivadas Parciais de Primeira e Segunda Ordem" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp3" class="cp-section">
+        <div class="section-badge">CHECKPOINT 03 • 2ECR 2023</div>
+        <h2 class="section-title">Vetor Gradiente e Derivada Direcional</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp3')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp3" class="box-content">
+            <p>Calcular o vetor gradiente da função de potencial f(x, y) = 2x^2 + 3y^2 no ponto P(1, 2) e determinar a derivada direcional na direção do vetor unitário u que maximiza a taxa de variação.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\nabla f(x, y) = \left( \frac{\partial f}{\partial x}, \frac{\partial f}{\partial y} \right) = (4x, 6y), \quad D_u f = \|\nabla f\|$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Determinação do Vetor Gradiente Geral</span>
+              </div>
+              <div class="step-content">
+                <p>\nabla f(x, y) = (4x)\mathbf{i} + (6y)\mathbf{j}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Avaliação no Ponto P(1, 2)</span>
+              </div>
+              <div class="step-content">
+                <p>\nabla f(1, 2) = (4 \cdot 1)\mathbf{i} + (6 \cdot 2)\mathbf{j} = 4\mathbf{i} + 12\mathbf{j}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Módulo do Gradiente</span>
+              </div>
+              <div class="step-content">
+                <p>\|\nabla f(1, 2)\| = \sqrt{4^2 + 12^2} = \sqrt{16 + 144} = \sqrt{160} = 4\sqrt{10} \approx 12,65.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Vetor Direcional de Máxima Variação</span>
+              </div>
+              <div class="step-content">
+                <p>\mathbf{u} = \frac{\nabla f}{\|\nabla f\|} = \left(\frac{4}{\sqrt{160}}, \frac{12}{\sqrt{160}}\right) = \left(\frac{1}{\sqrt{10}}, \frac{3}{\sqrt{10}}\right).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Conclusão Física</span>
+              </div>
+              <div class="step-content">
+                <p>A taxa máxima de crescimento no ponto P(1,2) ocorre na direção do gradiente e possui intensidade exata de 4\sqrt{10} unidades.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_3_cp3/grafico_resolucao.png" alt="Gráfico Vetor Gradiente e Derivada Direcional" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp4" class="cp-section">
+        <div class="section-badge">CHECKPOINT 04 • 2ECR 2023</div>
+        <h2 class="section-title">Otimização com Vínculos: Multiplicadores de Lagrange</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp4')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp4" class="box-content">
+            <p>Determinar as dimensões de um reservatório cilíndrico de volume fixo V = 1.000 m^3 que minimiza a área superficial total de material usando os Multiplicadores de Lagrange.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\nabla A(r, h) = \lambda \nabla V(r, h), \quad h = 2r$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Funções Objetivo e Vínculo</span>
+              </div>
+              <div class="step-content">
+                <p>Objetivo: A(r, h) = 2\pi r^2 + 2\pi rh. Vínculo: g(r, h) = \pi r^2 h - V_0 = 0.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Sistema de Equações de Lagrange</span>
+              </div>
+              <div class="step-content">
+                <p>\nabla A = (4\pi r + 2\pi h, 2\pi r) \quad \text{e} \quad \lambda \nabla g = \lambda(2\pi rh, \pi r^2).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Igualdade Componente a Componente</span>
+              </div>
+              <div class="step-content">
+                <p>1) 4\pi r + 2\pi h = 2\lambda\pi rh \implies 2r + h = \lambda rh; \quad 2) 2\pi r = \lambda\pi r^2 \implies \lambda = \frac{2}{r}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Substituição e Dedução Geométrica</span>
+              </div>
+              <div class="step-content">
+                <p>Substituindo \lambda na 1ª equação: 2r + h = \left(\frac{2}{r}\right)rh = 2h \implies h = 2r (altura igual ao diâmetro).</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Solução Numérica do Raio Ótimo</span>
+              </div>
+              <div class="step-content">
+                <p>V_0 = \pi r^2(2r) = 2\pi r^3 = 1000 \implies r = \sqrt[3]{\frac{500}{\pi}} \approx 5,42 \text{ m e } h \approx 10,84 \text{ m}.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_4_cp4/grafico_resolucao.png" alt="Gráfico Otimização com Vínculos: Multiplicadores de Lagrange" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp5" class="cp-section">
+        <div class="section-badge">CHECKPOINT 05 • 2ECR 2023</div>
+        <h2 class="section-title">Integrais Duplas em Coordenadas Polares</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp5')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp5" class="box-content">
+            <p>Calcular o volume de um sólido limitado superiormente pelo paraboloide z = 9 - x^2 - y^2 e inferiormente pelo plano z = 0 usando integral dupla em coordenadas polares.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$V = \iint_R (9 - x^2 - y^2) \, dA = \int_0^{2\pi} \int_0^3 (9 - r^2) r \, dr \, d\theta = \frac{81\pi}{2}$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Mudança de Variáveis para Coordenadas Polares</span>
+              </div>
+              <div class="step-content">
+                <p>Definimos x = r\cos\theta, y = r\sin\theta, portanto x^2 + y^2 = r^2 e o elemento diferencial de área dA = r \, dr \, d\theta.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Determinação dos Limites de Integração</span>
+              </div>
+              <div class="step-content">
+                <p>Para z = 0, temos 9 - r^2 = 0 \implies r = 3. Logo, r \in [0, 3] e \theta \in [0, 2\pi].</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Montagem da Integral Iterada</span>
+              </div>
+              <div class="step-content">
+                <p>V = \int_0^{2\pi} \left[ \int_0^3 (9r - r^3) \, dr \right] d\theta.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Resolução da Integral Radial</span>
+              </div>
+              <div class="step-content">
+                <p>\int_0^3 (9r - r^3) \, dr = \left[ \frac{9r^2}{2} - \frac{r^4}{4} \right]_0^3 = \frac{81}{2} - \frac{81}{4} = \frac{81}{4}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Resolução da Integral Angular e Resultado Final</span>
+              </div>
+              <div class="step-content">
+                <p>V = \int_0^{2\pi} \frac{81}{4} \, d\theta = \frac{81}{4}(2\pi) = \frac{81\pi}{2} \approx 127,23 \text{ unidades de volume}.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_5_cp5/grafico_resolucao.png" alt="Gráfico Integrais Duplas em Coordenadas Polares" loading="lazy" />
+          </div>
+        </div>
+      </section>
+      <section id="cp6" class="cp-section">
+        <div class="section-badge">CHECKPOINT 06 • 2ECR 2023</div>
+        <h2 class="section-title">Integrais de Linha e Teorema de Green no Plano</h2>
+        
+        <div class="problem-box">
+          <div class="box-header">
+            <span>📋 ENUNCIADO ORIGINAL DA AVALIAÇÃO</span>
+            <button class="copy-btn" onclick="copyText('prob-cp6')">Copiar Enunciado</button>
+          </div>
+          <div id="prob-cp6" class="box-content">
+            <p>Calcular o trabalho realizado pelo campo de forças F(x, y) = (y^2, 3xy) ao longo da curva fechada C orientada no sentido anti-horário em torno do retângulo unitário [0, 2] x [0, 3] aplicando o Teorema de Green.</p>
+          </div>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula-title">📐 MODELAGEM MATEMÁTICA &amp; FORMULAÇÃO FORMAL</div>
+          <div class="formula-latex">$$\oint_C (P \, dx + Q \, dy) = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA = \iint_D (3y - 2y) \, dA = 9$$</div>
+        </div>
+
+        <div class="symbolab-container">
+          <h3 class="symbolab-title">💎 Resolução Algébrica Passo a Passo (Padrão Symbolab)</h3>
+          
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 1: Identificação dos Componentes do Campo Vetorial</span>
+              </div>
+              <div class="step-content">
+                <p>P(x, y) = y^2 \quad \text{e} \quad Q(x, y) = 3xy.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 2: Cálculo do Rotacional Escalar Bidimensional</span>
+              </div>
+              <div class="step-content">
+                <p>\frac{\partial Q}{\partial x} = 3y \quad \text{e} \quad \frac{\partial P}{\partial y} = 2y \implies \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 3y - 2y = y.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 3: Aplicação do Teorema de Green</span>
+              </div>
+              <div class="step-content">
+                <p>\oint_C F \cdot dr = \int_0^2 \int_0^3 y \, dy \, dx.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 4: Integração na Variável y</span>
+              </div>
+              <div class="step-content">
+                <p>\int_0^3 y \, dy = \left[ \frac{y^2}{2} \right]_0^3 = \frac{9}{2}.</p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-header">
+                <span class="step-tag">Passo 5: Integração na Variável x e Resultado</span>
+              </div>
+              <div class="step-content">
+                <p>W = \int_0^2 \frac{9}{2} \, dx = \frac{9}{2} \times 2 = 9 \text{ Joules de trabalho líquido}.</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="plot-box">
+          <div class="box-header">
+            <span>📊 GRÁFICO COMPUTACIONAL &amp; VISUALIZAÇÃO DE RESULTADOS</span>
+            <span class="plot-tag">Matplotlib • Alta Resolução</span>
+          </div>
+          <div class="plot-img-container">
+            <img src="03_Provas_Avaliativas_Checkpoints/Checkpoint_6_cp6/grafico_resolucao.png" alt="Gráfico Integrais de Linha e Teorema de Green no Plano" loading="lazy" />
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>Bacharelado em Engenharia da Computação • <strong>FIAP</strong></p>
+    <p>Autor: Guilherme Macário (<a href="https://github.com/Guimemee" target="_blank">@Guimemee</a>) • Turma 2ECR • Ano 2023</p>
+    <p>Repositório Oficial: <a href="https://github.com/Guimemee/fiap-analise-de-problemas-multivariaveis" target="_blank">github.com/Guimemee/fiap-analise-de-problemas-multivariaveis</a></p>
+  </footer>
+
+  <script>
+    function copyText(elemId) {
+      const text = document.getElementById(elemId).innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => alert('Enunciado copiado para a área de transferência!'));
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        alert('Enunciado copiado!');
+      }
+    }
+  </script>
+</body>
+</html>

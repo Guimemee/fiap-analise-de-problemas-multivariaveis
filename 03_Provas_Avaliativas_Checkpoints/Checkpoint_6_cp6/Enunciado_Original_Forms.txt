@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Análise de Problemas Multivariáveis (Cálculo Multivariável)
+Turma 2ECR • Ano 2023
+Checkpoint 06: Integrais de Linha e Teorema de Green no Plano
+
+ENUNCIADO ORIGINAL:
+Calcular o trabalho realizado pelo campo de forças F(x, y) = (y^2, 3xy) ao longo da curva fechada C orientada no sentido anti-horário em torno do retângulo unitário [0, 2] x [0, 3] aplicando o Teorema de Green.

@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Análise de Problemas Multivariáveis (Cálculo Multivariável)
+Turma 2ECR • Ano 2023
+Checkpoint 03: Vetor Gradiente e Derivada Direcional
+
+ENUNCIADO ORIGINAL:
+Calcular o vetor gradiente da função de potencial f(x, y) = 2x^2 + 3y^2 no ponto P(1, 2) e determinar a derivada direcional na direção do vetor unitário u que maximiza a taxa de variação.

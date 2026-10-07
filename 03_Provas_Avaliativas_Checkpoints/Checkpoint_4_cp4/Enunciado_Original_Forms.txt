@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Análise de Problemas Multivariáveis (Cálculo Multivariável)
+Turma 2ECR • Ano 2023
+Checkpoint 04: Otimização com Vínculos: Multiplicadores de Lagrange
+
+ENUNCIADO ORIGINAL:
+Determinar as dimensões de um reservatório cilíndrico de volume fixo V = 1.000 m^3 que minimiza a área superficial total de material usando os Multiplicadores de Lagrange.

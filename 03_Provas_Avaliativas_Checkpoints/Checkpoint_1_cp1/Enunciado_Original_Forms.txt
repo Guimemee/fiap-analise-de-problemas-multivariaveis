@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Análise de Problemas Multivariáveis (Cálculo Multivariável)
+Turma 2ECR • Ano 2023
+Checkpoint 01: Integração por Substituição Trigonométrica e Frações Parciais
+
+ENUNCIADO ORIGINAL:
+Calcular a integral indefinida de fluxo de calor e campo magnético utilizando a técnica de substituição trigonométrica para expressões da forma sqrt(a^2 - u^2).

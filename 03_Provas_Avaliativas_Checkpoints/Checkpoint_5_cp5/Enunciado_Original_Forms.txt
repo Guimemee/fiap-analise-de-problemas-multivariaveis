@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Análise de Problemas Multivariáveis (Cálculo Multivariável)
+Turma 2ECR • Ano 2023
+Checkpoint 05: Integrais Duplas em Coordenadas Polares
+
+ENUNCIADO ORIGINAL:
+Calcular o volume de um sólido limitado superiormente pelo paraboloide z = 9 - x^2 - y^2 e inferiormente pelo plano z = 0 usando integral dupla em coordenadas polares.

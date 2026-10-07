@@ -1,0 +1,7 @@
+FIAP • Engenharia da Computação
+Disciplina: Análise de Problemas Multivariáveis (Cálculo Multivariável)
+Turma 2ECR • Ano 2023
+Checkpoint 02: Funções de Várias Variáveis e Derivadas Parciais de Primeira e Segunda Ordem
+
+ENUNCIADO ORIGINAL:
+Analisar a superfície térmica de dispersão f(x, y) = x^3 + y^3 - 3xy e determinar todas as derivadas parciais primeiras e segundas, validando o Teorema de Clairaut-Schwarz.
